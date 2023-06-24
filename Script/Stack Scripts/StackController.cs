@@ -9,18 +9,11 @@ public class StackController : MonoBehaviour
 
     public void ShatterAllParts()
     {
-        if(transform.parent != null)
-        {
-            transform.parent = null;
-            // FindObjectOfType<Player>().IncreaseBrokenStacks();
-        }
-
         foreach (StackPartController o in stackPartControlls)
         {
             o.Shatter();
         }
         StartCoroutine(RemoveParts());
-
     }
 
     IEnumerator RemoveParts()

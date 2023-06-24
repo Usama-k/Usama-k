@@ -8,20 +8,18 @@ public class StackPartController : MonoBehaviour
     private Rigidbody rigidBody;
     private MeshRenderer meshRender;
     private StackController stackController;
-    private Collider collider;
 
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
         meshRender = GetComponent<MeshRenderer>();
         stackController = transform.parent.GetComponent<StackController>();
-        collider = GetComponent<Collider>();
+        
     }
-
-   public void Shatter()
+    public void Shatter()
    {
         rigidBody.isKinematic = false;
-        collider.enabled = false;
+        GetComponent<Collider>().enabled = false;
 
         Vector3 forcePoint = transform.parent.position;
         float paretXpos = transform.parent.position.x;
@@ -37,14 +35,6 @@ public class StackPartController : MonoBehaviour
         rigidBody.AddTorque(Vector3.left * torque);
         rigidBody.velocity = Vector3.down;
    }
-
-    public void RemoveAllChilds()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).SetParent(null);
-            i--;
-        }
-    }
+   
 
 }

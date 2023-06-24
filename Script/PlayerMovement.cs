@@ -106,16 +106,13 @@ public class PlayerMovement : MonoBehaviour
         splash.GetComponent<SpriteRenderer>().color = splashColor;
         if (splash.gameObject.tag == "splash")
         {
-            Destroy(splash.gameObject,2f);
+            Destroy(splash.gameObject,1f);
         }
         rb.velocity = new Vector3(0,30f,0);
         CollidedSE(BallHitClip);
         if (Input.anyKey && obj.gameObject.CompareTag("Object") && ( fail==false ) )
         {
-            obj.transform.parent.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            // obj.collider.enabled = false;
-            /*obj.transform.Rotate(xAngle:30f,);*/
-            WaitDestroy(obj.gameObject);
+            obj.transform.parent.gameObject.GetComponent<StackController>().ShatterAllParts();
             score++;
         }
         camPosition.position=obj.transform.position + new Vector3(0f,8f,-18f);
@@ -136,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (popit==true)
             {
-                obj.transform.parent.gameObject.SetActive(false);
+                obj.transform.parent.gameObject.GetComponent<StackController>().ShatterAllParts();
                 score++;
             }
             else
@@ -152,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
           rb.velocity = new Vector3(0,1,0);
           if (Input.anyKey && obj.gameObject.CompareTag("Object") )
           {
-              obj.gameObject.SetActive(false);
+              obj.transform.parent.gameObject.GetComponent<StackController>().ShatterAllParts();
           }
       }
     private void OnCollisionExit(Collision obj)
